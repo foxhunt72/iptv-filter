@@ -2,9 +2,11 @@ version: "3.3"
    
 services:
   web:
-    build: .
+    build: build
     environment:
       - IPTV_M3U_URL=
       - IPTV_EPG_URL=
+    volumes:
+      - ./data:/code/data
     ports:
       - "8000:8000"

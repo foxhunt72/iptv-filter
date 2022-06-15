@@ -6,6 +6,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('m3u', views.m3u_api, name='m3u_api'),
     path('epg', views.epg_api, name='epg_api'),
+    path('epg/<str:search>/<str:replace>', views.epg_api, name='epg_api'),
     path('configure', views.configure, name='configure'),
     path('channels', views.channel_api, name='channel_api'),
     path('channels/<int:id>', views.channel_api, name='channel_api_with_id'),

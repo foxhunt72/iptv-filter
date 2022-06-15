@@ -75,7 +75,7 @@ def m3u_api(request):
     logger.info("Responded to m3u API call")
     return HttpResponse(m3u)
 
-def epg_api(request):
+def epg_api(request, search="", replace=""):
     logger.info("Received epg API call")
     epg = """<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE tv SYSTEM "xmltv.dtd">
@@ -83,11 +83,11 @@ def epg_api(request):
 """
     included_channels = EpgChannel.objects.filter(included = True)
     for c in included_channels:
-        epg += str(c).replace('&', '&amp;') + "\r\n"
+        epg += str(c).replace('&', '&amp;').replace(search, replace) + "\r\n"
 
     included_programmes = EpgProgramme.objects.filter(included = True)
     for p in included_programmes:
-        epg += str(p).replace('&', '&amp;') + "\r\n"
+        epg += str(p).replace('&', '&amp;').replace(search, replace) + "\r\n"
 
     epg += "</tv>"
     logger.info("Responded to epg API call")
